@@ -1,21 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Dashboard')
-
 @section('content')
-    <h1>Admin Dashboard</h1>
 
-    @if($user->role === 'superadmin')
-        <h2>All Restaurants</h2>
-    @else
-        <h2>Your Restaurant</h2>
-        <img src="{{ asset('storage/logos/' . $restaurant->logo) }}" alt="Restaurant Logo">
+<!-- Afișarea banner-ului -->
+@if($restaurant->banner)
+    <div class="banner-container position-relative mb-4">
+        <img src="{{ asset('storage/banners/' . $restaurant->banner) }}" alt="Banner" class="img-fluid w-100" style="max-height: 300px; object-fit: cover;">
+        <a href="{{ route('admin.editCustomizations', $restaurant->id) }}" class="position-absolute" style="top: 10px; right: 10px; color: white;">
+            <i class="fas fa-edit fa-2x"></i>
+        </a>
+    </div>
+@endif
 
-    @endif
+<div class="container">
+    <!-- Titlul Dashboard-ului -->
+    <h2 class="text-left mb-2">{{ $restaurant->name }} Admin Dashboard</h2>
+    <hr>
 
-    <ul>
-        @foreach($restaurants as $restaurant)
-            <li>{{ $restaurant->name }} - <a href="{{ route('restaurants.edit', $restaurant->id) }}">Edit</a></li>
-        @endforeach
-    </ul>
+    <!-- Conținutul dashboard-ului poate fi adăugat aici -->
+</div>
+
 @endsection

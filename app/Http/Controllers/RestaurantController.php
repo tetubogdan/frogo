@@ -70,5 +70,40 @@ public function updateExceptions(Request $request, $id)
     return redirect()->back()->with('success', 'Exceptions updated successfully.');
 }
 
+public function dashboard($id)
+{
+    $restaurant = Restaurant::findOrFail($id);
+    return view('admin.dashboard', compact('restaurant'));
+}
+
+public function editCustomizations($id)
+{
+    $restaurant = Restaurant::findOrFail($id);
+    return view('admin.customizations', compact('restaurant'));
+}
+
+public function updateCustomizations(Request $request, $id)
+{
+    $restaurant = Restaurant::findOrFail($id);
+
+    if ($request->hasFile('logo')) {
+        $logo = $request->file('logo');
+        $filename = time() . '.' . $logo->getClientOriginalExtension();
+        $path = $logo->storeAs('public/logos', $filename);
+        $restaurant->logo = $filename;
+    }
+
+    if ($request->hasFile('banner')) {
+        $banner = $request->file('banner');
+        $filename = time() . '.' . $banner->getClientOriginalExtension();
+        $path = $banner->storeAs('public/banners', $filename);
+        $restaurant->banner = $filename;
+    }
+
+    $restaurant->save();
+
+    return redirect()->route('admin.dashboard', ['id' => $restaurant->id])->with('success', 'Customizations updated successfully.');
+}
+
 
 }

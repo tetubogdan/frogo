@@ -40,5 +40,11 @@ Route::post('/admin/restaurant/{id}/schedule', [RestaurantController::class, 'up
 Route::get('/admin/restaurant/{id}/exceptions', [RestaurantController::class, 'editExceptions'])->name('admin.editExceptions');
 Route::post('/admin/restaurant/{id}/exceptions', [RestaurantController::class, 'updateExceptions'])->name('admin.updateExceptions');
 
+Route::get('/admin/restaurant/{id}/dashboard', [App\Http\Controllers\RestaurantController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/restaurant/{id}/customizations', [App\Http\Controllers\RestaurantController::class, 'editCustomizations'])->name('admin.editCustomizations');
+Route::post('/admin/restaurant/{id}/customizations', [App\Http\Controllers\RestaurantController::class, 'updateCustomizations'])->name('admin.updateCustomizations');
+
+
+
 
 
